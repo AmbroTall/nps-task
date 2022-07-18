@@ -1,0 +1,124 @@
+{% load i18n %}
+{% load  static %}
+<html lang="en"><head>
+    <title>NPS Scale</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <script src="{%static 'voc/js/emoji.js' %}" ></script>
+  <link rel="stylesheet" href="{%static 'voc/css/scale.css' %}">
+<script>
+    function previewFile(input){
+        var file = $("input[type=file]").get(0).files[0];
+
+        if(file){
+            var reader = new FileReader();
+
+            reader.onload = function(){
+                $("#previewImg").attr("src", reader.result);
+            }
+
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+<div class="container" style="color:yellow">
+<div class="row justify-content-center">
+    <h1 align="center"><b></b></h1>
+</div>
+<div class="row">
+    <center>
+    <div class="form-group col-md-4">
+        {% get_current_language as CURRENT_L %}
+            <label for="link" class="" style="float:left">
+                {% trans 'Select your language' %} <span class="asterisk"> </span>
+            </label><br><center>
+                    <select name="language" id="select_location" class="form-control w-100">
+                        {% get_available_languages as L %}
+                        {% get_language_info_list for L as ls %}
+                        {% for lang in ls %}
+                        <option value="{{ lang.code}}" {% if lang.code == CURRENT_L %} selected {% endif %}>
+                            {{lang.name_local}} ({{ lang.code}})
+                        </option>
+                        {% endfor %}
+                    </select>
+                    </center>
+
+<script>
+$('#select_location').on('change', function(){
+   window.location = '/'+$(this).val();
+});
+
+</script>
+</div>
+<center><div class="col-md-6">
+    <div class="row" style="color:yellow; bg-primary">
+
+        <center>
+            <div class="col-md-6">
+                <img width="100%" height="70%" src="{% static 'img/cap.png' %}">
+                <span style="color: white;font-weight:bold; font-size:12px"><font color="red" size="4">Note :</font> Before login with face ensure that are you upload a photo while registration then login with face</span><br><br>
+        <button id="mybtn" class="btn btn-success">Sign In with Face</button></div></div></div></center>
+
+<form method="post" action="/loginid" enctype="multipart/form-data">
+    {% csrf_token %}
+<input type="file" id="profile_image" name="profile_image" accept="image/*;capture=camera" style="display: none;" onchange="this.form.submit()" required />
+</form>
+<script>
+$("#mybtn").click(function() {
+    $("input[id='profile_image']").click();
+});
+</script><br>
+<span style="color: white;font-weight:bold; font-size:20px">OR</span>
+    <form  method="POST">
+{% csrf_token %}
+
+            <div class="col-md-6">
+                <div class="row" style="margin-top:2%">
+            <div class="input-group" style="color:yellow;margin-left:8%">
+        <div class="form-group col-md-5 mb-0">
+            <label for="username" class="" style="float:left">
+               {% trans 'Username' %}<span class="asterisk"> *</span>
+            </label>
+        <input type="text" name="user" class="form-control col-md-4" placeholder="{% trans 'Username' %}"  id="username" required>
+        </div>&nbsp;&nbsp;
+        <div class="form-group col-md-5 mb-0">
+            <label for="password" class="" style="float:left">
+                {% trans 'Password' %}<span class="asterisk"> *</span>
+            </label>
+        <input type="password" name="pass" placeholder="{% trans 'Password' %}" class="form-control" id="password" required>
+        </div>
+        </div><br>
+
+
+        <input type="text" name="dev" id="dev" hidden>
+        <input type="text" name="loc" id="loc" hidden>
+        <input type="text" name="os" id="os" hidden>
+
+        <input type="text" name="brow" id="brow" hidden>
+        <input type="text" name="time" id="time" hidden>
+        <input type="text" name="conn" id="conn" hidden>
+        <input type="text" name="ip" id="ip" hidden>
+        <br><br>
+        <center><input  type="submit" class="btn btn-success mt-3" value="{% trans 'Sign In' %}"><br><br>
+        <span ><font color="white">{% trans 'Do not have an Account' %} </font><a href="https://100014.pythonanywhere.com/register" style="color:yellow;"><b> {% trans 'signup' %}</b></a></span></center>
+      <script>
+          var rtime;
+        rtime= new Date().toLocaleString();
+        document.getElementById("time").value=rtime;
+        (function () {
+            'use strict';
+
+            var module = {
+                options: [],
+                header: [navigator.platform, n
+
+</script>
+                </div>
+            </div>
+    </form>
+    </center>
+</div>
+</div>
+

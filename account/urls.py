@@ -12,7 +12,7 @@ app_name = 'account'
 urlpatterns = [
 	path('account/', account_info, name="account_information"),
 
-	path('nps/login/', Login, name='loginnps'),
+	path('nps-admin/', Login, name='loginnps'),
 	# path('nps/logout/', LogoutView.as_view(next_page='account:loginnps'), name='logout'),
 	# path('nps/register/', RegisterView.as_view(), name='registernpss'),
 ]

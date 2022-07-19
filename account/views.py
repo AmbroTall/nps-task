@@ -48,7 +48,7 @@ def Login(request):
             return response
         except:
             if x == "TeamMember" or x == "Admin":
-                return redirect("http://127.0.0.1:8000/nps-admin/")
+                return redirect("http://127.0.0.1:8000/nps-admin/settings/")
             elif x == "Freelancer" or x == "User":
                 return redirect("http://127.0.0.1:8000/nps-scale/default/")
             else:

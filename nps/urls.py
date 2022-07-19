@@ -8,7 +8,7 @@ router.register('nps-setting', viewset=SystemSettings)
 router.register('nps-response', viewset=Response)
 urlpatterns = [
     path('', include(router.urls)),
-    path('nps-admin/', dowell_scale_admin,name='admin_page'),
+    path('nps-admin/settings/', dowell_scale_admin,name='admin_page'),
     path('nps-scale/<str:tname>', dowell_scale, name='detail_page'),
     path('nps-scale/default/', default_scale, name='default_page')
 ]

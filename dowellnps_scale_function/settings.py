@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-174^!vny@!oln&!^5%*dod#^fnbw92g9t_c&=y$g5h2-#dmyt=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -159,8 +159,8 @@ STATIC_URL = '/static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
-# LOGIN_URL = 'https://100014.pythonanywhere.com/nps/dowellscale/default'
+LOGIN_URL = 'account:loginnps'
 
-LOGIN_URL = 'http://100014.pythonanywhere.com/'
+# LOGIN_URL = 'http://100014.pythonanywhere.com/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

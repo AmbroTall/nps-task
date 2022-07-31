@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-174^!vny@!oln&!^5%*dod#^fnbw92g9t_c&=y$g5h2-#dmyt=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -38,31 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "corsheaders",
+    #"corsheaders",
     'rest_framework',
     'nps.apps.NpsConfig',
     'rest_framework.authtoken',
-    'account.apps.AccountConfig',
     'crispy_forms',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-# AUTH_USER_MODEL = 'account.Account'
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ],
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-        'rest_framework.permissions.AllowAny',
-        'rest_framework.permissions.IsAdminUser',
-        'rest_framework.authentication.SessionAuthentication',
-    ),
-
-    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    # 'PAGE_SIZE': 10,
-}
 
 CORS_ALLOW_ALL_ORIGINS=True
 
@@ -102,17 +85,30 @@ WSGI_APPLICATION = 'dowellnps_scale_function.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'CLIENT': {
+#             "host":"mongodb+srv://Ambrose:ambrose@cluster0.tlpb9.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+#             "name":"dowellnps_scale_function",
+#             "authMechanism":"SCRAM-SHA-1"
+#         }
+#     }
+# }
+#do not change database settings
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'nps-database',
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'CLIENT': {
-            "host":"mongodb+srv://Ambrose:ambrose@cluster0.tlpb9.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-            "name":"dowellnps_scale_function",
-            "authMechanism":"SCRAM-SHA-1"
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -159,8 +155,5 @@ STATIC_URL = '/static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
-LOGIN_URL = 'account:loginnps'
-
-# LOGIN_URL = 'http://100014.pythonanywhere.com/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

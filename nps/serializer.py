@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from .models import system_settings, response 
+from .models import system_settings, response
 from bson.objectid import ObjectId
 
 
 class SystemSettingsSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = system_settings
         fields = '__all__'
@@ -14,6 +14,6 @@ class SystemSettingsSerializer(serializers.ModelSerializer):
 class ResponseSerializer(serializers.ModelSerializer):
     class Meta:
         model = response
-        fields = ('score', 'category',)
+        fields = ('scale_name', 'score', 'brand_name', 'user', 'email')
 
 

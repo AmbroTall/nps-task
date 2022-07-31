@@ -5,7 +5,6 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" href="{%static 'voc/css/scale.css' %}">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <meta charset="UTF-8">
@@ -17,7 +16,7 @@
         #horizontal{
            display: flex;
            justify-content: space-between;
-<!--           background: blue;-->
+           padding: 20px;
        }
 
         #horizontal p{
@@ -30,11 +29,67 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
         }
 
         #labels{
         display: flex;
         justify-content: space-between;
+        }
+
+        #countdown{
+        color: black;
+        float: right;
+        padding: 10px 20px;
+        font-size: 16px;
+        }
+
+        @media screen and (max-width: 600px) {
+          #horizontal p{
+            font-size: 16px;
+            padding: 5px;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            margin: 0.5px;
+            }
+
+           #labels{
+           font-size: 20px;
+           }
+        }
+
+        @media screen and (max-width: 995px) {
+            #horizontal{
+            padding: 10px;
+            }
+          #horizontal p{
+            font-size: 18px;
+            padding: 5px;
+            height: 40px;
+            width: 40px;
+            margin: .5px'
+            }
+
+           #labels{
+           font-size: 14px;
+           }
+        }
+        @media screen and (max-width: 335px) {
+            #horizontal{
+            padding: 10px;
+            }
+          #horizontal p{
+            font-size: 12px;
+            padding: 5px;
+            height: 30px;
+            width: 30px;
+            margin: .5px'
+            }
+
+           #labels{
+           font-size: 14px;
+           }
         }
     </style>
 <script>
@@ -53,6 +108,7 @@ $(document).ready(function() {
 
                console.log(this.id);
                setrating(this.id);
+               postScore(this.id)
             //   para = document.getElementById("lg").innerHTML=this.id;
                document.getElementById("myText").value=this.id
 
@@ -63,6 +119,20 @@ $(document).ready(function() {
 
 });
 
+function postScore(score){
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", 'https://100035.pythonanywhere.com/nps-response/', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+        score: parseInt(score),
+        scale_name: "default",
+        brand_name: "",
+        user: "",
+        email: "",
+    }));
+    // window.location.replace("http://100014.pythonanywhere.com/main")
+}
+
 setrating = function(id) {
     for (var i = 0; i < mbuttons.length; i++) {
         if (+id >= +mbuttons[i].id) {
@@ -70,7 +140,7 @@ setrating = function(id) {
             mbuttons[i].style.background = "#5cb85c";
         }else {
             mbuttons[i].style.color = "red";
-            mbuttons[i].style.background = "{{default.rcolor}}";
+            mbuttons[i].style.background = "#fff";
         }
 
     }
@@ -81,32 +151,34 @@ setrating = function(id) {
 
 <div class="container ">
     <div class="row mt-4">
-        <div class="col-sm-2 {{bglight}}" style="{{left}}">
+        <div class="col-sm-2 {{bglight}}" style="{% if user == 'admin' %} {{left}} {% endif %}">
+            {% if user == "admin" %}
             <div class="text-dark"><h2 align="center"><u>{{hist}}</u></h2></div>
             <table>
             {% for nps in npsall %}
                 <tr>
         <!--            <td><a href="https://100014.pythonanywhere.com/nps/dowellscale/{{nps.template_name}}">{{nps.template_name}}</a></td>-->
-                    <td><a href="http://127.0.0.1:8000/nps-scale/{{nps.template_name}}">{{nps.template_name}}</a></td>
+                    <td><a href="https://100035.pythonanywhere.com/nps-scale/{{nps.template_name}}">{{nps.template_name}}</a></td>
                 </tr>
             {% endfor %}
+            {% endif %}
             </table>
         </div>
         <div class="col-sm-8 bg-light" style="border:silver 2px solid; box-shadow:2px 2px 2px 2px rgba(0,0,0,0.3)" >
-        <h1 align="center" class="text-danger"><b>Scale</b></h1><br>
+        <h1 align="center" class="text-danger"><b>Scale</b><span id="countdown"></span></h1><br>
             <div id="scale-container">
                 <div id="horizontal" ></div>
             </div>
 <!--        <div id="horizontal" ></div>-->
-            <div class="pl-3" id="labels" style="font-size:2em">
+            <div class="pl-3" id="labels">
                    <div>Very unlikely</div>
                     <div>Select score</div>
                     <div>Very likely</div>
             </div>
         <br>
-        {% if user.role == "Admin" or user.role == "TeamMember" %}
+        {% if user == "admin" %}
         <div class="pb-4">
-            <a style="float:right" href="{{url}}" class="{{btn}}">{{urltext}}</a>
+            <a style="float:right" href="{% url 'nps:admin_page' %}" class="{{btn}}">{{urltext}}</a>
             <br>
         </div>
         {% endif %}
@@ -122,7 +194,6 @@ setrating = function(id) {
                 var scale_cont = document.getElementById("scale-container")
                 var labels = document.getElementById("labels")
                 scale_bg.style.background = '#FFD580';
-                scale_bg.style.padding = "20px 20px";
                 console.log('{{default.fomat|safe}}')
                 star = '{{default.fomat|safe}}'
 
@@ -162,4 +233,30 @@ setrating = function(id) {
     <div class="col-sm-2"></div>
 </div>
 </div>
+<script>
+    let time = 3600;
+
+    const countdownEl = document.getElementById("countdown");
+    score = document.getElementsByClassName("number");
+<!--    console.log(mbuttons);-->
+
+    setInterval(updateCountdown, 1000)
+
+    function updateCountdown(){
+        const minutes = Math.floor(time/60);
+        let seconds = time % 60;
+
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        countdownEl.innerHTML = `${minutes}:${seconds}`
+        seconds < 10  && minutes == 0 ? countdownEl.style.color = "red" : countdownEl.style.color = "black" ;
+        time--;
+        time = time < 0 ? redirectMain() : time;
+    }
+
+    function redirectMain(){
+        window.location.replace("http://100014.pythonanywhere.com/main")
+    }
+</script>
 </body>
+</html>

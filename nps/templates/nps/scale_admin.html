@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <script src="{%static 'voc/js/emoji.js' %}" ></script>
-  <link rel="stylesheet" href="{%static 'voc/css/scale.css' %}">
+
   <style media="all" id="fa-main">
   /*!
    * Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com
@@ -24,6 +23,7 @@
        width: 70px;
        border-radius: 50%;
        margin: 5px;
+       cursor: pointer;
    }
 <!--   #horizontal span{-->
 <!--       font-size: 30px;-->
@@ -60,12 +60,12 @@
                               <select id="orientation" class="form-control" name="orientation" required="">
                                 <option selected="">Choose...</option>
                                 <option value="horizontal">Horizontal</option>
-                                <option value="vertical">Vertical</option>
+                                <!--<option value="vertical">Vertical</option>-->
                               </select>
                           </div>
                           <div class="form-group col-md-6">
                               <label for="numberof">Number of rating</label>
-                              <input type="number" name="numberof" class="form-control" id="numberof" placeholder="Number of Scale" required="">
+                              <input type="number" name="numberof" class="form-control" id="numberof" min="0" max="10" placeholder="Number of Scale" required="">
                           </div>
                           <script>
                       //         $('#orientation').change(function(){
@@ -165,6 +165,7 @@
                   var scale_bg = document.getElementById("horizontal")
                   scale_bg.style.background = $("#scolor").val();
                   scale_bg.style.padding = "20px 20px";
+
 
                   document.getElementById("exampleModalLongTitle").innerHTML=$("#head").val();
                   document.getElementById("left").innerHTML=$("#lefttext").val();

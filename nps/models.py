@@ -1,5 +1,4 @@
 from django.db import models
-from account.models import Account
 from datetime import date
 
 
@@ -37,17 +36,15 @@ class system_settings(models.Model):
 
 
 class response(models.Model):
+    scale_name = models.CharField(max_length=500)
     score = models.IntegerField()
-    category = models.CharField(max_length=50, blank=True)
+    brand_name = models.CharField(max_length=500, blank=True)
+    user = models.CharField(max_length=500, blank=True)
+    email = models.EmailField(blank=True)
+    product_name = models.CharField(max_length=500, blank=True)
+
 
     def __str__(self):
         return f'{self.id}'
 
-    def save(self, *args, **kwargs):
-        if self.score <= 6:
-            self.category = "Detractor"
-        elif self.score <= 8:
-            self.category = "Neutral"
-        else:
-            self.category = "Promoter"
-        super(response, self).save(*args, **kwargs)
+

@@ -114,32 +114,18 @@ $(document).ready(function() {
             mbuttons[i].addEventListener("click", function() {
 
                console.log(this.id);
+               var score_tag = document.getElementById("scoretag")
+               score_tag.value = parseInt(this.id)
+               console.log(this.id);
+               document.getElementById('jsform').submit();
                setrating(this.id);
-               postScore(this.id)
             //   para = document.getElementById("lg").innerHTML=this.id;
                document.getElementById("myText").value=this.id
-
             });
         }
-
     }
-
 });
 
-function postScore(score){
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", 'https://100035.pythonanywhere.com/nps-response/', true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify({
-        score: parseInt(score),
-        scale_name: "{{scale_name|safe}}",
-        brand_name: "{{brand_name|safe}}",
-        product_name: "{{product_name|safe}}",
-        user: "",
-        email: "",
-    }));
-    window.location.replace("http://100014.pythonanywhere.com/main")
-}
 
 setrating = function(id) {
     for (var i = 0; i < mbuttons.length; i++) {
@@ -156,8 +142,9 @@ setrating = function(id) {
 </script>
 </head>
 <body>
-<form>
-
+<form method="POST" id="jsform">
+    {% csrf_token %}
+    <input type="hidden" name="scoretag" id="scoretag" >
 </form>
 <div class="container ">
     <div class="row mt-4">
@@ -216,10 +203,10 @@ setrating = function(id) {
                     }
                     else if(star==="emoji"){
                         if (i > n/2){
-                            para.innerHTML = "☹";
+                            para.innerHTML = "\uD83D\uDE00";
                         }
                         else{
-                            para.innerHTML = "\uD83D\uDE00";
+                            para.innerHTML = "&#128577;";
                         }
                     }
                     else{
@@ -232,8 +219,6 @@ setrating = function(id) {
                     document.getElementById(i).style.background ='{{default.roundcolor|safe}}';
                     document.getElementById(i).style.color ="{{default.fontcolor|safe }}";
                 }
-
-
 
                 let time = {{default.time|safe}};
 

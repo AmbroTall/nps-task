@@ -108,7 +108,7 @@ $(document).ready(function() {
 
                console.log(this.id);
                setrating(this.id);
-               postScore(this.id)
+            //   postScore(this.id)
             //   para = document.getElementById("lg").innerHTML=this.id;
                document.getElementById("myText").value=this.id
 
@@ -158,7 +158,7 @@ setrating = function(id) {
             {% for nps in npsall %}
                 <tr>
         <!--            <td><a href="https://100014.pythonanywhere.com/nps/dowellscale/{{nps.template_name}}">{{nps.template_name}}</a></td>-->
-                    <td><a href="https://100035.pythonanywhere.com/nps-scale/{{nps.template_name}}">{{nps.template_name}}</a></td>
+                    <td><a href="https://100035.pythonanywhere.com/nps-scale1/{{nps.template_name}}">{{nps.template_name}}</a></td>
                 </tr>
             {% endfor %}
             {% endif %}
@@ -217,7 +217,12 @@ setrating = function(id) {
                        para.innerHTML = '<i class="fa fa-star"></i>';
                     }
                     else if(star==="emoji"){
-                        para.innerHTML = '<i class="far fa-grin"></i>';
+                        if (i > n/2){
+                            para.innerHTML = "&#128577;";
+                        }
+                        else{
+                            para.innerHTML = "\uD83D\uDE00";
+                        }
                     }
                     else{
                         para.innerHTML = i;

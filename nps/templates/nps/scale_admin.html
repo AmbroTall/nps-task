@@ -25,12 +25,45 @@
        margin: 5px;
        cursor: pointer;
    }
+
+
+
+    #vertical span{
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 5px;
+    }
+
+    #vertical {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        width: 100px;
+        align-items: center;
+    }
+
+    #labels-vert{
+        display: none;
+        justify-content: space-between;
+        flex-direction: column;
+        }
+
 <!--   #horizontal span{-->
 <!--       font-size: 30px;-->
 <!--       padding: 10px;-->
 <!--       border-radius: 50%;-->
 <!--       margin: 5px;-->
 <!--   }-->
+
+    #labels-vert{
+        /*display: none;*/
+        justify-content: space-between;
+        flex-direction: column;
+        }
 
 
    #horizontal{
@@ -60,12 +93,13 @@
                               <select id="orientation" class="form-control" name="orientation" required="">
                                 <option selected="">Choose...</option>
                                 <option value="horizontal">Horizontal</option>
-                                <!--<option value="vertical">Vertical</option>-->
+                                <option value="vertical">Vertical</option>
                               </select>
                           </div>
                           <div class="form-group col-md-6">
                               <label for="numberof">Number of rating</label>
-                              <input type="number" name="numberof" class="form-control" id="numberof" min="0" max="10" placeholder="Number of Scale" required="">
+                              <!--<input type="number" name="numberof" class="form-control" id="numberof" min="0" max="10" placeholder="Number of Scale" required="">-->
+                              <input type="number" name="numberof" class="form-control" id="numberof" value=10 disabled>
                           </div>
                           <script>
                       //         $('#orientation').change(function(){
@@ -139,15 +173,22 @@
                                 <span aria-hidden="true">×</span>
                               </button>
                             </div>
-                            <div class="modal-body">
+                            <div class="modal-body" id="modal-body">
                               <div class="horizontal d-flex justify-content-center" id="red"></div>
-                              <center><div class="d-flex justify-content-between" id="horizontal"></div></center>
+                              <center><div id="horizontal"></div>
+                              </center>
                               <br>
-                              <div class="pl-3" style="font-size:2em">
+                              <div class="pl-3" id="lab-hor" style="font-size:2em">
                                  <div style="float: left" id="left"></div>
                                   <div style="float: right" id="right"></div>
                                   <div style="margin: 0 auto; width: 30%;" id="center"></div>
                               </div>
+
+                              <!--<div class="pl-3" id="labels-vert" style="font-size:2em">-->
+                              <!--  <div></div>-->
+                              <!--  <div></div>-->
+                              <!--  <div></div>-->
+                              <!--</div>-->
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -163,8 +204,54 @@
                   var n=0;
                  function preview(){
                   var scale_bg = document.getElementById("horizontal")
+                  var orientation = document.getElementById("orientation")
+                  var vert = document.getElementById("vert-div")
+                  var sca_vert = document.getElementById("labels-vert")
+
                   scale_bg.style.background = $("#scolor").val();
                   scale_bg.style.padding = "20px 20px";
+
+                //   if (orientation ==="vertical" ){
+                //     document.getElementById("left-vert").innerHTML=$("#lefttext").val();
+                //     document.getElementById("right-vert").innerHTML=$("#righttext").val();
+                //     document.getElementById("center-vert").innerHTML=$("#centertext").val();
+                //     label_horizontal.style.display = "none";
+                //     vert.style.display = "flex";
+                //     scale_bg.style.flexDirection = "column";
+                //     labels.style.display = "none";
+                //     // scale_bg.style.width = "100px";
+                //     scale_bg.style.margin = "auto";
+                //     scale_cont.style.display = "flex";
+                //     sca_vert.style.display = "flex";
+                //     scale_cont.style.width = "300px";
+                //     scale_cont.style.margin = "auto";
+                // }
+
+                  var e = document.getElementById("orientation");
+                  var lab_hor= document.getElementById("lab-hor");
+                  var modal= document.getElementById("modal-body");
+                  var c= document.getElementById("center");
+                    function onChange() {
+                      var value = e.value;
+
+                      if (value ==="vertical" ){
+                        scale_bg.style.flexDirection = "column";
+                        scale_bg.style.width = "100px";
+                        scale_bg.style.margin = "auto";
+                        modal.style.display = "flex";
+                        modal.style.justifyContent = "center";
+                        lab_hor.style.display = "flex";
+                        lab_hor.style.flexDirection = "column";
+                        lab_hor.style.justifyContent = "space-between";
+                        c.style.width = "unset";
+
+                      }
+
+                    }
+                    e.onchange = onChange;
+                    onChange();
+
+
 
 
                   document.getElementById("exampleModalLongTitle").innerHTML=$("#head").val();
@@ -195,13 +282,6 @@
                   function ram(star,num){
                       for (let i = 1; i <= num; i++) {
                       const para = document.createElement("span");
-
-                       // if (star==="stars"){
-                       // 	para.innerHTML="Naga";
-                       // }else{
-                       // 	para.innerHTML = i;
-                       // }
-
                       para.id=i
                       document.getElementById($("#orientation").val()).appendChild(para);
                       if (star==="stars"){
@@ -209,9 +289,12 @@
                            document.getElementById(i).style.backgroundColor = $("#rcolor").val();
                        }
                        else if(star==="emoji"){
-                           document.getElementById(i).innerHTML = '<i class="far fa-grin"></i>';
-                           document.getElementById(i).style.backgroundColor = $("#scolor").val();
-
+                           if (i > n/2){
+                                document.getElementById(i).innerHTML = "\uD83D\uDE00";
+                            }
+                            else{
+                                document.getElementById(i).innerHTML = "&#128577;";
+                            }
                        }
                        else{
                            document.getElementById(i).innerHTML = i;

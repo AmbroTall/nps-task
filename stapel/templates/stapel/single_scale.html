@@ -12,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>VOC_NPS</title>
+    <title>VOC_STAPEL</title>
     <style>
         #horizontal{
            display: flex;
@@ -195,7 +195,10 @@ setrating = function(id) {
                     scale_cont.style.width = "300px";
                     scale_cont.style.margin = "auto";
                 }
-                for (let i = 0; i <= n; i++) {
+
+                var ans = {{scale|safe}};
+
+                 for (let i = 0; i < ans.length; i++) {
                     const para = document.createElement("p");
 
                     if (star==="stars"){
@@ -210,12 +213,11 @@ setrating = function(id) {
                         }
                     }
                     else{
-                        para.innerHTML = i;
+                        para.innerHTML = ans[i];
                     }
                     para.id=i
                     para.classList.add("number");
                     document.getElementById("horizontal").appendChild(para);
-<!--                    document.getElementById(i).innerHTML = i;-->
                     document.getElementById(i).style.background ='{{default.roundcolor|safe}}';
                     document.getElementById(i).style.color ="{{default.fontcolor|safe }}";
                 }
@@ -240,7 +242,7 @@ setrating = function(id) {
 
 
                 function redirectMain(){
-                    window.location.replace("https://100014.pythonanywhere.com/main")
+                    window.location.replace("http://100014.pythonanywhere.com/main")
                 }
                 </script>
     <div class="col-sm-2"></div>

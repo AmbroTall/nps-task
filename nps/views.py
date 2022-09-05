@@ -43,7 +43,7 @@ def dowell_scale_admin(request):
         # objcolor = system_settings.objects.create(orientation=orientation,numberrating=numberrating,scalecolor=scalecolor,roundcolor=roundcolor,fontcolor=fontcolor,fomat=fomat,time=time,template_name=template_name,name=name,text=text, left=left,right=right,center=center)
         # objcolor.save()
         try:
-            field_add={"orientation":orientation,"numberrating":numberrating,"scalecolor":scalecolor,"roundcolor":roundcolor,"fontcolor":fontcolor,"fomat":fomat,"time":time,"template_name":template_name,"name":name,"text":text, "left":left,"right":right,"center":center}
+            field_add={"orientation":orientation,"numberrating":numberrating,"scalecolor":scalecolor,"roundcolor":roundcolor,"fontcolor":fontcolor,"fomat":fomat,"time":time,"template_name":template_name,"name":name,"text":text, "left":left,"right":right,"center":center, "scale-category": "nps scale"}
             x = dowellconnection("dowellscale","bangalore","dowellscale","scale","scale","1093","ABCDE","insert",field_add,"nil")
             print(x)
             return redirect(f"https://100035.pythonanywhere.com/nps-scale1/{template_name}")
@@ -145,11 +145,11 @@ def default_scale(request):
 def default_scale_admin(request):
     context = {}
     context['user'] = 'admin'
-    context["left"]="border:silver 2px solid; box-shadow:2px 2px 2px 2px rgba(0,0,0,0.3)"
+    context["left"]="border:silver 2px solid; box-shadow:2px 2px 2px 2px rgba(0,0,0,0.3);height:300px;overflow-y: scroll;"
     context["hist"] = "Scale History"
     context["btn"] = "btn btn-dark"
     context["urltext"] = "Create new scale"
-    field_add = {}
+    field_add = {"scale-category": "nps scale"}
     all_scales = dowellconnection("dowellscale","bangalore","dowellscale","scale","scale","1093","ABCDE","fetch",field_add,"nil")
     data = json.loads(all_scales)
     context["npsall"] = sorted(data["data"], key=lambda d: d['_id'], reverse=True)
@@ -165,14 +165,15 @@ def login(request):
     if url == None:
         return redirect("https://100014.pythonanywhere.com/")
     user=get_user_profile(url)
+    # return HttpResponse(user["username"])
     if user["username"]:
         if user["role"]=='Client_Admin' or user["role"]=='TeamMember':
             response = redirect("nps:default_page_admin")
-            # response.set_cookie('role', user['role'])
+            response.set_cookie('role', user['role'])
             return response
         else:
             response = redirect("nps:default_page")
-            # response.set_cookie('role', user['role'])
+            response.set_cookie('role', user['role'])
             return response
 
 

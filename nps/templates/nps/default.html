@@ -102,7 +102,7 @@ $(document).ready(function() {
     console.log(mbuttons);
 
 
-    if (mbuttons.length > 0) {
+    if (mbuttons.length >= 0) {
         for (var i = 0; i < mbuttons.length; i++) {
             mbuttons[i].addEventListener("click", function() {
 
@@ -210,7 +210,7 @@ setrating = function(id) {
                 }
 
 
-                for (let i = 1; i <= n; i++) {
+                for (let i = 0; i <= n; i++) {
                     const para = document.createElement("p");
 
                     if (star==="stars"){

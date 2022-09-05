@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     #"corsheaders",
     'rest_framework',
     'nps.apps.NpsConfig',
+    'stapel.apps.StapelConfig',
     'rest_framework.authtoken',
     'crispy_forms',
 ]

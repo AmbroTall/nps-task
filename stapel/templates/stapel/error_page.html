@@ -19,7 +19,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <title>Embedd link</title>
+    <title>Preview page</title>
     <style>
       .url-clipboard {
         padding: 10px;
@@ -86,13 +86,13 @@
       }
       .iframe{
         width: 900px;
-        height: 450px;
         display: flex;
         flex-direction: column;
         margin: auto;
         justify-content: center;
         align-items: flex-start;
       }
+
     </style>
   </head>
   <body style="background-color: black;">
@@ -112,24 +112,26 @@
       <div class="syntax">
         <h1>Syntax</h1>
         <p class="text-dark">
-
             <span style="font-weight:bold"> < iframe</span><span class="text-danger"> src=</span>"https://100035.pythonanywhere.com?brand_name=<span class="text-primary">your brand</span>&product_name=<span class="text-primary">your product</span>" >< /<span style="font-weight:bold">iframe ></span
           >
         </p>
         <div><center><iframe name="iFrameName" title="ScalePreview" style="border:2px solid blue;"></iframe></center></div>
+      </div>
+      <div >
 
       </div>
 
-
     </div>
 
-    <script>
+
+        <script>
       function codeAddress() {
         x = getCookieValue('url')
         b = x.replaceAll('"','')
         var copyText = document.getElementById('mytext')
         copyText.innerHTML = `https://100035.pythonanywhere.com${b}?brand_name=<b>your brand</b>&product_name=<b>your product</b>`
-        document.getElementsByName('iFrameName')[0].src = `https://100035.pythonanywhere.com${b}?brand_name=your brand&product_name=your product`;
+        document.getElementsByName('iFrameName')[0].src = `https://100035.pythonanywhere.com${b}?brand_name=your brand&product_name=your product`
+
         }
       window.onload = codeAddress;
 
@@ -152,9 +154,6 @@
       const getCookieValue = (name) =>
         document.cookie.match("(^|;)\\s*" + name + "\\s*=\\s*([^;]+)")?.pop() ||
         "";
-
-
-
     </script>
   </body>
 </html>

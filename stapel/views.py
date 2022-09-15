@@ -17,13 +17,12 @@ def dowell_scale_admin(request):
         scalecolor = request.POST['scolor']
         roundcolor = request.POST['rcolor']
         fontcolor = request.POST['fcolor']
-        fomat = request.POST['format']
+        fomat = "numbers"
         left = request.POST["left"]
         right = request.POST["right"]
-        center = request.POST["center"]
         time = request.POST['time']
         spacing_unit = int(request.POST['spacing_unit'])
-        text = f"{left}+{center}+{right}"
+        text = f"{left}+{right}"
         rand_num = random.randrange(1, 10000)
         template_name = f"{name.replace(' ', '')}{rand_num}"
         scale = []
@@ -35,7 +34,7 @@ def dowell_scale_admin(request):
             raise Exception("Check scale limits and spacing_unit")
 
         try:
-            field_add={"orientation":orientation,"scale_upper_limit":scale_upper_limit,"scale_lower_limit":-scale_upper_limit,"scalecolor":scalecolor,"roundcolor":roundcolor,"fontcolor":fontcolor,"fomat":fomat,"time":time,"template_name":template_name,"name":name,"text":text, "left":left,"right":right,"center":center, "scale":scale, "scale-category": "stapel scale"}
+            field_add={"orientation":orientation,"scale_upper_limit":scale_upper_limit,"scale_lower_limit":-scale_upper_limit,"scalecolor":scalecolor,"roundcolor":roundcolor,"fontcolor":fontcolor,"fomat":fomat,"time":time,"template_name":template_name,"name":name,"text":text, "left":left,"right":right,"scale":scale, "scale-category": "stapel scale"}
             x = dowellconnection("dowellscale","bangalore","dowellscale","scale","scale","1093","ABCDE","insert",field_add,"nil")
             print(x)
 

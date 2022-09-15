@@ -165,15 +165,17 @@ def login(request):
     if url == None:
         return redirect("https://100014.pythonanywhere.com/")
     user=get_user_profile(url)
-    # return HttpResponse(user["username"])
-    if user["username"]:
-        if user["role"]=='Client_Admin' or user["role"]=='TeamMember':
-            response = redirect("nps:default_page_admin")
-            response.set_cookie('role', user['role'])
-            return response
-        else:
-            response = redirect("nps:default_page")
-            response.set_cookie('role', user['role'])
-            return response
-
+    # return HttpResponse(user)
+    try:
+        if user["username"]:
+            if user["role"]=='Client_Admin' or user["role"]=='TeamMember':
+                response = redirect("nps:default_page_admin")
+                response.set_cookie('role', user['role'])
+                return response
+            else:
+                response = redirect("nps:default_page")
+                response.set_cookie('role', user['role'])
+                return response
+    except:
+        return redirect("https://100014.pythonanywhere.com/")
 

@@ -86,7 +86,7 @@
                           <h2 align="center"><u>Customize your scale</u></h2>
                           <div class="form-group col-md-12">
                               <label for="head">Name of Scale</label>
-                              <input type="text" name="nameofscale" class="form-control" id="head" placeholder="Name of scale" required="">
+                              <input type="text" name="nameofscale" onchange="myName()" class="form-control" id="head" placeholder="Name of scale" required="">
                           </div>
                           <div class="form-group col-md-6">
                               <label for="orientation">Orientation</label>
@@ -101,28 +101,22 @@
                               <!--<input type="number" name="numberof" class="form-control" id="numberof" min="0" max="10" placeholder="Number of Scale" required="">-->
                               <input type="number" name="numberof" class="form-control" id="numberof" value=10 disabled>
                           </div>
-                          <script>
-                      //         $('#orientation').change(function(){
-                      //       alert($(this).val());
 
-                      //   })
-
-                      </script>
                           <div class="form-group col-md-4">
                               <label for="scolor">Scale Color</label>
-                              <input type="color" name="scolor" class="form-control" id="scolor" placeholder="Background Color" required="">
+                              <input type="color" onchange="myScolor()" name="scolor" class="form-control" id="scolor" placeholder="Background Color" required="">
                           </div>
                           <div class="form-group col-md-4">
                               <label for="rcolor">Round Color</label>
-                              <input type="color" name="rcolor" class="form-control" id="rcolor" placeholder="Font Color" required="">
+                              <input type="color" onchange="myRcolor()" name="rcolor" class="form-control" id="rcolor" placeholder="Font Color" required="">
                           </div>
                           <div class="form-group col-md-4">
                               <label for="fcolor">Font Color</label>
-                              <input type="color" name="fcolor" class="form-control" id="fcolor" placeholder="Scale Color" required="">
+                              <input type="color" onchange="myFcolor()" name="fcolor" class="form-control" id="fcolor" placeholder="Scale Color" required="">
                           </div>
                           <div class="form-group col-md-6">
                               <label for="format">Format</label>
-                              <select id="format" class="form-control" name="format" required="">
+                              <select id="format" onchange="myFormat()" class="form-control" name="format" required="">
                                 <option selected="">Choose...</option>
                                 <option value="numbers">Numbers</option>
                                 <option value="emoji">Emojis</option>
@@ -131,24 +125,24 @@
                           </div>
                           <div class="form-group col-md-6">
                               <label for="lefttext">Left</label>
-                              <input type="text" name="left" class="form-control" id="lefttext" placeholder="Left Text" required="">
+                              <input type="text" onchange="myLtext()" name="left" class="form-control" id="lefttext" placeholder="Left Text" required="">
                           </div>
                         <div class="form-group col-md-6">
                               <label for="centertext">Center</label>
-                              <input type="text" name="center" class="form-control" id="centertext" placeholder="Center Text" required="">
+                              <input type="text" onchange="myCtext()" name="center" class="form-control" id="centertext" placeholder="Center Text" required="">
                           </div>
                           <div class="form-group col-md-6">
                               <label for="righttext">Right</label>
-                              <input type="text" name="right" class="form-control" id="righttext" placeholder="Right Text" required="">
+                              <input type="text" onchange="myRtext()" name="right" class="form-control" id="righttext" placeholder="Right Text" required="">
                           </div>
                           <div class="form-group col-md-12">
                               <label for="time">Time</label>
-                              <input type="text" name="time" class="form-control" id="time" placeholder="Time" required="">
+                              <input type="text" onchange="myTime()" name="time" class="form-control" id="time" placeholder="Time" required="">
                           </div>
                         <div class="form-group col-md-12 text-right p-15">
 
-                      <button type="submit" class="btn btn-primary">Save</button>
-                      <a onclick="preview();" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Preview</a>
+                      <button type="submit" id="saveBtn" class="btn btn-primary">Save</button>
+                      <a onclick="preview();" id="prevBtn" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Preview</a>
                         </div>
                     </form>
               </div>
@@ -166,7 +160,7 @@
 
                       <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                          <div class="modal-content">
+                          <div class="modal-content" id="modalContent">
                             <div class="modal-header">
                               <h2 class="modal-title" id="exampleModalLongTitle" align="center"></h2>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -179,9 +173,9 @@
                               </center>
                               <br>
                               <div class="pl-3" id="lab-hor" style="font-size:2em">
-                                 <div style="float: left" id="left"></div>
-                                  <div style="float: right" id="right"></div>
-                                  <div style="margin: 0 auto; width: 30%;" id="center"></div>
+                                 <div id="left"></div>
+                                  <div id="right"></div>
+                                  <div id="center"></div>
                               </div>
 
                               <!--<div class="pl-3" id="labels-vert" style="font-size:2em">-->
@@ -202,7 +196,58 @@
                   var hori="horizontal";
                   var name="number";
                   var n=0;
+
+                  let head_name;
+                  let orient;
+                  let format;
+                  let scolor;
+                  let rcolor;
+                  let fcolor;
+                  let ltext;
+                  let ctext;
+                  let rtext;
+                  let time;
+
+                  function myName() {
+                      head_name = document.getElementById("head").value;
+                  }
+                  function myScolor() {
+                      scolor = document.getElementById("scolor").value;
+                  }
+                  function myRcolor() {
+                      rcolor = document.getElementById("rcolor").value;
+                  }
+                  function myFcolor() {
+                      fcolor = document.getElementById("fcolor").value;
+                  }
+                  function myFormat() {
+                      format = document.getElementById("format").value;
+                  }
+                  function myLtext() {
+                      ltext = document.getElementById("lefttext").value;
+                  }
+                  function myRtext() {
+                      rtext = document.getElementById("righttext").value;
+                  }
+                  function myCtext() {
+                      ctext = document.getElementById("centertext").value;
+                  }
+                  function myTime() {
+                      time = document.getElementById("time").value;
+                  }
+
+                  var e = document.getElementById("orientation");
+                    function onChange() {
+                      orient = e.value
+                    }
+                    e.onchange = onChange;
+                    onChange();
+
                  function preview(){
+                    if (head_name === "undefined" || orient === "Choose..." || format === "undefined" || scolor === "undefined" || rcolor === "undefined" || ltext === "undefined" || ctext === "undefined" || rtext === "undefined" || time === "undefined" ){
+                        alert("Fields can't be empty")
+                        return document.getElementById("modalContent").style.display = "none"
+                    }
                   var scale_bg = document.getElementById("horizontal")
                   var orientation = document.getElementById("orientation")
                   var vert = document.getElementById("vert-div")
@@ -211,45 +256,34 @@
                   scale_bg.style.background = $("#scolor").val();
                   scale_bg.style.padding = "20px 20px";
 
-                //   if (orientation ==="vertical" ){
-                //     document.getElementById("left-vert").innerHTML=$("#lefttext").val();
-                //     document.getElementById("right-vert").innerHTML=$("#righttext").val();
-                //     document.getElementById("center-vert").innerHTML=$("#centertext").val();
-                //     label_horizontal.style.display = "none";
-                //     vert.style.display = "flex";
-                //     scale_bg.style.flexDirection = "column";
-                //     labels.style.display = "none";
-                //     // scale_bg.style.width = "100px";
-                //     scale_bg.style.margin = "auto";
-                //     scale_cont.style.display = "flex";
-                //     sca_vert.style.display = "flex";
-                //     scale_cont.style.width = "300px";
-                //     scale_cont.style.margin = "auto";
-                // }
-
                   var e = document.getElementById("orientation");
                   var lab_hor= document.getElementById("lab-hor");
                   var modal= document.getElementById("modal-body");
                   var c= document.getElementById("center");
-                    function onChange() {
-                      var value = e.value;
+                  var value = e.value;
 
-                      if (value ==="vertical" ){
-                        scale_bg.style.flexDirection = "column";
-                        scale_bg.style.width = "100px";
-                        scale_bg.style.margin = "auto";
-                        modal.style.display = "flex";
-                        modal.style.justifyContent = "center";
-                        lab_hor.style.display = "flex";
-                        lab_hor.style.flexDirection = "column";
-                        lab_hor.style.justifyContent = "space-between";
-                        c.style.width = "unset";
 
-                      }
+                  if (value ==="vertical" ){
+                    scale_bg.style.flexDirection = "column";
+                    scale_bg.style.width = "100px";
+                    scale_bg.style.margin = "auto";
+                    modal.style.display = "flex";
+                    modal.style.flexDirection = "row";
+                    modal.style.justifyContent = "center";
+                    lab_hor.style.display = "flex";
+                    lab_hor.style.flexDirection = "column";
+                    lab_hor.style.justifyContent = "space-between";
+                    c.style.width = "unset";
+                  }else {
+                    scale_bg.style.flexDirection = "row";
+                    lab_hor.style.display = "flex";
+                    lab_hor.style.justifyContent = "space-between";
+                    lab_hor.style.flexDirection = "row";
+                    modal.style.flexDirection = "column";
+                    scale_bg.style.width = "unset";
+                  }
 
-                    }
-                    e.onchange = onChange;
-                    onChange();
+
 
 
 
@@ -260,7 +294,7 @@
                   document.getElementById("center").innerHTML=$("#centertext").val();
                   // document.getElementById("ghost").style.display="block";
                   $("#red").attr('class', $("#orientation").val());
-                  $('#horizontal').attr("id", $("#orientation").val());
+                //   $('#horizontal').attr("id", $("#orientation").val());
                   em=$("#orientation").val();
                   $('#'+em).empty();
                   n = $("#numberof").val();
@@ -270,58 +304,57 @@
                   ram(name,n);
 
                  }
-                               for (let i = 1; i <= n; i++) {
-                    const para = document.createElement("p");
-                      para.innerHTML = i;
-                      para.id="demo"+i
-                      document.getElementById("horizontal").appendChild(para);
-                     document.getElementById("demo"+i).innerHTML = i;
-                     document.getElementById("demo"+i).style.backgroundColor = $("#fcolor").val();
-                     document.getElementById("demo"+i).style.color = $("#scolor").val();
-                  }
+                //               for (let i = 1; i <= n; i++) {
+                //     const para = document.createElement("p");
+                //       para.innerHTML = i;
+                //       para.id="demo"+i
+                //       document.getElementById("horizontal").appendChild(para);
+                //      document.getElementById("demo"+i).innerHTML = i;
+                //      document.getElementById("demo"+i).style.backgroundColor = $("#fcolor").val();
+                //      document.getElementById("demo"+i).style.color = $("#scolor").val();
+                //   }
                   function ram(star,num){
-                      for (let i = 1; i <= num; i++) {
-                      const para = document.createElement("span");
-                      para.id=i
-                      document.getElementById($("#orientation").val()).appendChild(para);
-                      if (star==="stars"){
-                           document.getElementById(i).innerHTML = '<i class="fa fa-star"></i>';
-                           document.getElementById(i).style.backgroundColor = $("#rcolor").val();
-                       }
-                       else if(star==="emoji"){
-                           if (i > n/2){
-                                document.getElementById(i).innerHTML = "\uD83D\uDE00";
+                      var ans = [];
+                      ans = []
+                      document.getElementById("horizontal").innerHTML = "";
+                      function range(start, end) {
+                        for (let i = start; i <= end; i++) {
+                            ans.push(i);
+                        }
+                        return ans;
+                      }
+                      console.log(range(0, num))
+
+                      for (let i = 0; i < ans.length; i++) {
+                          const para = document.createElement("span");
+                          para.id=i
+                          document.getElementById("horizontal").appendChild(para);
+                          if (star==="stars"){
+                               document.getElementById(i).innerHTML = '<i class="fa fa-star"></i>';
+                               document.getElementById(i).style.backgroundColor = $("#rcolor").val();
+                           }
+                           else if(star==="emoji"){
+                               if (i > n/2){
+                                    document.getElementById(i).innerHTML = "\uD83D\uDE00";
+                                    document.getElementById(i).style.backgroundColor = $("#rcolor").val();
+                                }
+                                else{
+                                    document.getElementById(i).innerHTML = "&#128577;";
+                                    document.getElementById(i).style.backgroundColor = $("#rcolor").val();
+                                }
+                           }
+                           else if (star === "numbers"){
+                              document.getElementById(i).innerHTML = ans[i];
+                               document.getElementById(i).style.backgroundColor = $("#rcolor").val();
+                            }else {
+                                console.log("Tall Boy")
                             }
-                            else{
-                                document.getElementById(i).innerHTML = "&#128577;";
-                            }
-                       }
-                       else{
-                           document.getElementById(i).innerHTML = i;
-                           document.getElementById(i).style.backgroundColor = $("#rcolor").val();
-                       }
 
 
                      document.getElementById(i).style.color = $("#fcolor").val();
                   }
                   }
 
-
-                  // looping from i = 1 to 5
-
-                  // for (let i = 1; i <= n; i++) {
-                  // 	const para = document.createElement("span");
-                  //     const para1 = document.createElement("p");
-                  //     para1.innerHTML=i;
-                  // para.innerHTML = i;
-                  // para.id="demo"+i
-                  // // Append to another element:
-                  // document.getElementById("vertical").appendChild(para);
-                  // document.getElementById("red").appendChild(para1);
-                  //    document.getElementById("demo"+i).innerHTML = i;
-                  //    document.getElementById("demo"+i).style.background = "rgb(242, 208, 181)"
-
-                  // }
 
 
                   </script>

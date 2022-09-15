@@ -14,7 +14,7 @@ urlpatterns = [
     path('nps-admin/settings/', dowell_scale_admin,name='admin_page'),
     path('nps-scale/<str:tname>', dowell_scale, name='detail_page'),
     path('nps-scale1/<str:tname1>', dowell_scale1, name='afteradmin'),
-    path('nps-scale/error/', brand_product_error, name='error_page'),
+    path('nps-scale/embed/', brand_product_error, name='error_page'),
     path('nps-scale/default/', default_scale, name='default_page'),
     path('nps-admin/default/', default_scale_admin, name='default_page_admin')
 ]
